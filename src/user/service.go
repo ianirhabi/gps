@@ -3,11 +3,11 @@ package user
 import (
 	"fmt"
 
-	orm "github.com/alfatih/irhabi/orm"
+	orm "github.com/alfatih/beego/orm"
 	"gps.com/gps/model"
 )
 
-func PostRegis(r Register, imei string) (d interface{}, e error) {
+func PostRegis(r Register, imei string, Aktif string) (d interface{}, e error) {
 	o := orm.NewOrm()
 	var data Respons
 	var validasi []*model.User
@@ -28,8 +28,8 @@ func PostRegis(r Register, imei string) (d interface{}, e error) {
 				Password: r.Password,
 				Imei:     imei,
 				Token:    r.Token,
-				Long:     r.lont,
-				Lat:      r.lat,
+				Long:     r.Lont,
+				Lat:      r.Lat,
 				Status:   "pending",
 				Time:     r.Time,
 				Date:     r.Tanggal,
@@ -42,8 +42,23 @@ func PostRegis(r Register, imei string) (d interface{}, e error) {
 				data.Status = "gagal"
 			}
 		} else {
-			data.Status = "Anda sudah terdaftar"
-			fmt.Println("data sudah ada")
+
+			if Aktif == "aktif" {
+				imeinya := model.User{Id: validasi[0].Id}
+				if o.Read(&imeinya) == nil {
+					imeinya.Status = Aktif
+					imeinya.Usergrup = "4"
+					if f, err := o.Update(&imeinya); err == nil {
+						data.Status = "berhasil"
+						data.Data = Aktif
+					} else {
+						fmt.Println("debug gagal === ", f, err)
+					}
+				}
+			} else {
+				data.Status = "Anda sudah terdaftar"
+				fmt.Println("data sudah ada")
+			}
 		}
 	} else {
 		fmt.Println("kesalahan pada mysql")

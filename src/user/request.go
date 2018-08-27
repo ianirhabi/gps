@@ -4,13 +4,17 @@ type Register struct {
 	Username string `json:"username"`
 	Nama     string `json:"name"`
 	Password string `json:"password"`
-	Token    string `json:"tokenfirebase"`
+	Token    string `json:"token"`
 	Imei     string `json:"imei"`
-	lat      string `json:"lat"`
-	lont     string `json:"long"`
+	Lat      string `json:"lat"`
+	Lont     string `json:"lont"`
 	status   string `json:"status"`
 	Time     string `json:"time"`
 	Tanggal  string `json:"tanggal"`
+}
+
+type Status struct {
+	Aktif string `json:"aktif"`
 }
 
 type Respons struct {

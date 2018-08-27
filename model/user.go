@@ -1,6 +1,6 @@
 package model
 
-import orm "github.com/alfatih/irhabi/orm"
+import orm "github.com/alfatih/beego/orm"
 
 func init() {
 	orm.RegisterModel(new(User))

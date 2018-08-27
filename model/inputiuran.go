@@ -1,7 +1,7 @@
 package model
 
 import (
-	orm "github.com/alfatih/irhabi/orm"
+	orm "github.com/alfatih/beego/orm"
 )
 
 func init() {
@@ -10,7 +10,7 @@ func init() {
 
 type Iuran_anggota struct {
 	Id           int64  `orm:"column(id);auto"json:"id"`
-	UserId       string `orm:"column(user_id);size(100)"json:"userid"`
+	UserId       int64  `orm:"column(user_id);size(100)"json:"userid"`
 	StatusBulan  string `orm:"column(status_bulan);size(100)"json:"status_bulan"`
 	StatusMinggu string `orm:"column(status_minggu);size(100)"json:"status_minggu"`
 	StatusTahun  string `orm:"column(status_tahun);size(100)"json:"status_tahun"`

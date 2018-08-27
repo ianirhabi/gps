@@ -8,9 +8,10 @@ import (
 
 func Regis(c echo.Context) (e error) {
 	var r Register
+	status := c.Param("status")
 	imei := c.Param("imei")
 	if err := c.Bind(&r); err == nil {
-		if cc, m := PostRegis(r, imei); m == nil {
+		if cc, m := PostRegis(r, imei, status); m == nil {
 			return c.JSON(http.StatusOK, &cc)
 		}
 	}
