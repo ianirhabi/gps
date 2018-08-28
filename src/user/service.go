@@ -50,7 +50,7 @@ func PostRegis(r Register, username string, Aktif string) (d interface{}, e erro
 						data.Status = "berhasil"
 						data.Data = Aktif
 					} else {
-						fmt.Println("debug gagal === ", f, err)
+						fmt.Println("debug gagal aktif === ", f, err)
 					}
 				}
 			} else if Aktif == "realupdate" {
@@ -65,7 +65,7 @@ func PostRegis(r Register, username string, Aktif string) (d interface{}, e erro
 						data.Status = "berhasil"
 						data.Data = ""
 					} else {
-						fmt.Println("debug gagal === ", f, err)
+						fmt.Println("debug gagal realupdate === ", f, err)
 					}
 				}
 			} else {
