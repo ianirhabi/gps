@@ -102,3 +102,21 @@ func Bulan(bulan string) (b string, e error) {
 	}
 	return bulan, e
 }
+
+func IuranAnggoDelete(bln string, tahun string, userid string, minggu string) (d interface{}, e error) {
+	o := orm.NewOrm()
+	var data Respons
+	var iuran []*model.Iuran_anggota
+	if bulan, err := Bulan(bln); err == nil {
+		if f, d := o.Raw("delete FROM iuran_anggota where user_id =? and status_bulan = ? and status_tahun=? and status_minggu =?", userid, bulan, tahun, minggu).QueryRows(&iuran); d == nil {
+			//jika terdapat data
+			if f == 0 {
+				data.Status = "berhasil"
+				data.Data = "data behasil dihapus"
+			} else {
+				fmt.Println("debug gagal == ", f, d)
+			}
+		}
+	}
+	return data, e
+}
