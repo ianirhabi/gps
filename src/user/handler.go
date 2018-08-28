@@ -9,9 +9,9 @@ import (
 func Regis(c echo.Context) (e error) {
 	var r Register
 	status := c.Param("status")
-	imei := c.Param("imei")
+	username := c.Param("username")
 	if err := c.Bind(&r); err == nil {
-		if cc, m := PostRegis(r, imei, status); m == nil {
+		if cc, m := PostRegis(r, username, status); m == nil {
 			return c.JSON(http.StatusOK, &cc)
 		}
 	}

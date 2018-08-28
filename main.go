@@ -7,7 +7,7 @@ import (
 )
 
 func init() {
-	orm.RegisterDataBase("default", "mysql", "root:ian123456@tcp(192.168.88.252:3306)/gps_app?charset=utf8")
+	orm.RegisterDataBase("default", "mysql", "root:ian!@#$%^@tcp(localhost:3306)/gps_app?charset=utf8")
 }
 
 func main() {

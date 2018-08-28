@@ -7,18 +7,17 @@ import (
 	"gps.com/gps/model"
 )
 
-func PostRegis(r Register, imei string, Aktif string) (d interface{}, e error) {
+func PostRegis(r Register, username string, Aktif string) (d interface{}, e error) {
 	o := orm.NewOrm()
 	var data Respons
 	var validasi []*model.User
 
-	if f, d := o.Raw("SELECT * FROM user where imei =?", imei).QueryRows(&validasi); d == nil {
-		fmt.Println("imeinya ", f, d, imei)
+	if f, d := o.Raw("SELECT * FROM user where username =?", username).QueryRows(&validasi); d == nil {
+		fmt.Println("imeinya ", f, d, username)
 		//Conversi Interface
 		// var token = map[string]interface{}{
 		// 	"nama": *validasi[0],
 		// }
-
 		//fmt.Println(validasi.Id)
 		// s := strings.Split(*validasi[0], "{")
 		// id := s[0]
@@ -26,7 +25,7 @@ func PostRegis(r Register, imei string, Aktif string) (d interface{}, e error) {
 		if f == 0 {
 			user := model.User{Username: r.Username,
 				Password: r.Password,
-				Imei:     imei,
+				Imei:     r.Imei,
 				Token:    r.Token,
 				Long:     r.Lont,
 				Lat:      r.Lat,
@@ -42,7 +41,6 @@ func PostRegis(r Register, imei string, Aktif string) (d interface{}, e error) {
 				data.Status = "gagal"
 			}
 		} else {
-
 			if Aktif == "aktif" {
 				imeinya := model.User{Id: validasi[0].Id}
 				if o.Read(&imeinya) == nil {
@@ -52,7 +50,22 @@ func PostRegis(r Register, imei string, Aktif string) (d interface{}, e error) {
 						data.Status = "berhasil"
 						data.Data = Aktif
 					} else {
-						fmt.Println("debug gagal === ", f, err)
+						fmt.Println("debug gagal aktif === ", f, err)
+					}
+				}
+			} else if Aktif == "realupdate" {
+				imeinya := model.User{Id: validasi[0].Id}
+				if o.Read(&imeinya) == nil {
+					imeinya.Token = r.Token
+					imeinya.Time = r.Time
+					imeinya.Date = r.Tanggal
+					imeinya.Long = r.Lont
+					imeinya.Lat = r.Lat
+					if f, err := o.Update(&imeinya); err == nil {
+						data.Status = "berhasil"
+						data.Data = ""
+					} else {
+						fmt.Println("debug gagal realupdate === ", f, err)
 					}
 				}
 			} else {
