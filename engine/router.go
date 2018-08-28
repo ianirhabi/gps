@@ -15,7 +15,7 @@ func Router() {
 	e.Use(middleware.Recover())
 
 	enpoinregis := e.Group("/gps/user")
-	enpoinregis.POST("/regis/:imei/:status", user.Regis)
+	enpoinregis.POST("/regis/:username/:status", user.Regis)
 
 	enpoinuser := e.Group("/gps/user")
 	enpoinuser.POST("/login", user.Login)
