@@ -24,6 +24,7 @@ func Router() {
 	epinputiuran := e.Group("/gps/iuran")
 	epinputiuran.POST("", inputiuran.Inputiuran)
 	epinputiuran.GET("/:bulan/:tahun/anggota/:user/:minggu", inputiuran.Getiuran)
+	epinputiuran.DELETE("/:bulan/:tahun/anggota/:user/:minggu", inputiuran.Deleteiuran)
 
 	endpoin_lihatsms := e.Group("/gps/sms")
 	endpoin_lihatsms.POST("/:username", lihatsms.Postsms)

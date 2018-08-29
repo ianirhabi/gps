@@ -68,6 +68,18 @@ func PostRegis(r Register, username string, Aktif string) (d interface{}, e erro
 						fmt.Println("debug gagal realupdate === ", f, err)
 					}
 				}
+			} else if Aktif == "admin" {
+				imeinya := model.User{Id: validasi[0].Id}
+				if o.Read(&imeinya) == nil {
+					imeinya.Status = "aktif"
+					imeinya.Usergrup = "2"
+					if f, err := o.Update(&imeinya); err == nil {
+						data.Status = "berhasil"
+						data.Data = Aktif
+					} else {
+						fmt.Println("debug gagal aktif === ", f, err)
+					}
+				}
 			} else {
 				data.Status = "Anda sudah terdaftar"
 				fmt.Println("data sudah ada")

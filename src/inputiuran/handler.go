@@ -30,3 +30,15 @@ func Getiuran(c echo.Context) (e error) {
 
 	return e
 }
+
+func Deleteiuran(c echo.Context) (e error) {
+	bulan := c.Param("bulan")
+	tahun := c.Param("tahun")
+	user := c.Param("user")
+	minggu := c.Param("minggu")
+
+	if dd, m := IuranAnggoDelete(bulan, tahun, user, minggu); m == nil {
+		return c.JSON(http.StatusOK, &dd)
+	}
+	return e
+}
