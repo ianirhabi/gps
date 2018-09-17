@@ -5,7 +5,9 @@ import (
 	"github.com/labstack/echo/middleware"
 	"gps.com/gps/src/inputiuran"
 	"gps.com/gps/src/lihatsms"
+	"gps.com/gps/src/upload"
 	"gps.com/gps/src/user"
+	"retrobarbershop.com/retro/api/src/download"
 )
 
 func Router() {
@@ -25,6 +27,12 @@ func Router() {
 	epinputiuran.POST("", inputiuran.Inputiuran)
 	epinputiuran.GET("/:bulan/:tahun/anggota/:user/:minggu", inputiuran.Getiuran)
 	epinputiuran.DELETE("/:bulan/:tahun/anggota/:user/:minggu", inputiuran.Deleteiuran)
+
+	endpoin_getimage := e.Group("/gps/getimage")
+	endpoin_getimage.GET("/:imagefile", upload.GetPhoto)
+
+	endpoin_getimage := e.Group("/gps/download")
+	endpoin_getimage.GET("/apk", download.GetApk)
 
 	endpoin_lihatsms := e.Group("/gps/sms")
 	endpoin_lihatsms.POST("/:username", lihatsms.Postsms)
