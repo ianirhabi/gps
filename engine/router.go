@@ -3,11 +3,11 @@ package engine
 import (
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+	"gps.com/gps/src/download"
 	"gps.com/gps/src/inputiuran"
 	"gps.com/gps/src/lihatsms"
 	"gps.com/gps/src/upload"
 	"gps.com/gps/src/user"
-	"retrobarbershop.com/retro/api/src/download"
 )
 
 func Router() {
@@ -31,8 +31,8 @@ func Router() {
 	endpoin_getimage := e.Group("/gps/getimage")
 	endpoin_getimage.GET("/:imagefile", upload.GetPhoto)
 
-	endpoin_getimage := e.Group("/gps/download")
-	endpoin_getimage.GET("/apk", download.GetApk)
+	endpoin_getapk := e.Group("/gps/download")
+	endpoin_getapk.GET("/apk", download.GetApk)
 
 	endpoin_lihatsms := e.Group("/gps/sms")
 	endpoin_lihatsms.POST("/:username", lihatsms.Postsms)
